@@ -1,0 +1,48 @@
+All the programs: 
+
+01. Qbittorrent
+02. Radarr
+03. Sonarr
+04. Bazarr
+05. Prowlarr
+06. Tautulli
+07. Overseerr
+08. PMS
+09. NPM
+10. homarr
+11. Watchtower
+12. Flaresolverr
+13. qbitmanage
+
+Compose groups:
+
+Arr
+01. Radarr
+02. Sonarr
+03. Bazarr
+04. Prowlarr
+05. Tautulli
+
+DL
+01. Qbittorrent
+
+PMS
+01. PMS
+
+Homarr
+01. homarr - (Docker run rather than compose?) 
+
+NPM
+01. NPM
+
+Overseerr
+01. Overseerr
+
+Watchtower
+01. Watchtower
+
+Flaresolverr
+01. Flaresolverr
+
+qbitmanage
+01. qbitmanage
