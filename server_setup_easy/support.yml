@@ -118,9 +118,9 @@ services:
     environment:
       - TZ=Africa/Johannesburg
 
-#NPM
-  NPM:
-    container_name: NPM
+#Nginx Proxy Manager
+  npm:
+    container_name: npm
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
     ports:
