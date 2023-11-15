@@ -1,5 +1,27 @@
 version: "3.7"
 services:
+
+#Plex Media Server (?)
+  plex:
+    container_name: plex
+    image: ghcr.io/hotio/plex
+    restart: unless-stopped
+    ports:
+      - "32400:32400"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Africa/Johannesburg
+      - PLEX_CLAIM_TOKEN=
+      - PLEX_ADVERTISE_URL
+      - PLEX_NO_AUTH_NETWORKS=192.168.0.116
+      - PLEX_BETA_INSTALL=false
+    volumes:
+      - /docker/appdata/plex:/config
+      - /tmp/plex:/transcode
+      - /data/media:/data/media
+
 #Radarr
   radarr:
     container_name: radarr
@@ -148,23 +170,4 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/overseerr:/config
 
-#Plex Media Server (?)
-  plex:
-    container_name: plex
-    image: ghcr.io/hotio/plex
-    restart: unless-stopped
-    ports:
-      - "32400:32400"
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - UMASK=002
-      - TZ=Africa/Johannesburg
-      - PLEX_CLAIM_TOKEN=
-      - PLEX_ADVERTISE_URL
-      - PLEX_NO_AUTH_NETWORKS=192.168.0.116
-      - PLEX_BETA_INSTALL=false
-    volumes:
-      - /docker/appdata/plex:/config
-      - /tmp/plex:/transcode
-      - /data/media:/data/media
+
