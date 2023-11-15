@@ -1,0 +1,1 @@
+docker compose up -f pms.yml -f support.yml

@@ -1,0 +1,152 @@
+version: "3.7"
+services:
+
+#Radarr
+  radarr:
+    container_name: radarr
+    image: ghcr.io/hotio/radarr
+    restart: unless-stopped
+    ports:
+      - "7878:7878"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Africa/Johannesburg
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/appdata/radarr:/config
+      - /data:/data
+
+#Sonarr
+  sonarr:
+    container_name: sonarr
+    image: ghcr.io/hotio/sonarr
+    restart: unless-stopped
+    ports:
+      - "8989:8989"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Africa/Johannesburg
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/appdata/sonarr:/config
+      - /data:/data
+      
+#Bazarr
+  bazarr:
+    container_name: bazarr
+    image: ghcr.io/hotio/bazarr
+    restart: unless-stopped
+    ports:
+      - "6767:6767"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Africa/Johannesburg
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/appdata/bazarr:/config
+      - /data/media:/data/media
+      
+#Prowlarr
+  prowlarr:
+    container_name: prowlarr
+    image: ghcr.io/hotio/prowlarr
+    restart: unless-stopped
+    ports:
+      - "9696:9696"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Africa/Johannesburg
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/appdata/prowlarr:/config
+      
+#Tautulli
+  tautulli:
+    container_name: tautulli
+    image: ghcr.io/hotio/tautulli
+    restart: unless-stopped
+    ports:
+      - "8181:8181"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Africa/Johannesburg
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/appdata/tautulli:/config
+
+#qbittorrent
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - WEBUI_PORT=6060
+      - TZ=Africa/Johannesburg
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/appdata/qbittorrent:/config
+      - /data/torrents:/data/torrents
+    ports:
+      - 6060:6060
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+
+#Homarr Dashboard
+  homarr:
+    container_name: homarr
+    image: ghcr.io/ajnart/homarr:latest
+    restart: unless-stopped
+    volumes:
+      - /docker/appdata/homarr/configs:/app/data/configs
+      - /docker/appdata/homarr/icons:/app/public/icons
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - '7575:7575'
+    environment:
+      - TZ=Africa/Johannesburg
+
+#NPM
+  NPM:
+    container_name: NPM
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      # These ports are in format <host-port>:<container-port>
+      - '50080:80'
+      - '50081:81'
+      - '50443:443'
+      # Add any other Stream port you want to expose
+      # - '21:21' # FTP
+    volumes:
+      - /docker/appdata/NPM:/data #./data:/data
+      - /docker/appdata/NPM/letsencrypt:/etc/letsencrypt #./letsencrypt:/etc/letsencrypt
+
+#Overseerr
+  overseerr:
+    container_name: overseerr
+    image: ghcr.io/hotio/overseerr
+    restart: unless-stopped
+    ports:
+      - "5055:5055"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Africa/Johannesburg
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /docker/appdata/overseerr:/config
+
+
