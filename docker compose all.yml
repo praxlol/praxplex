@@ -83,8 +83,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/tautulli:/config
 
-version: "2.1"
-services:
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
@@ -103,8 +101,6 @@ services:
       - 6881:6881/udp
     restart: unless-stopped
 
-version: '3'
-services:
   homarr:
     container_name: homarr
     image: ghcr.io/ajnart/homarr:latest
@@ -118,7 +114,6 @@ services:
     environment:
       - TZ=Africa/Johannesburg
 
-version: '3.8'
 services:
   #NPM
   app:
@@ -135,8 +130,6 @@ services:
       - /docker/appdata/NPM:/data #./data:/data
       - /docker/appdata/NPM/letsencrypt:/etc/letsencrypt #./letsencrypt:/etc/letsencrypt
 
-version: "3.7"
-services:
   #Overseerr
   overseerr:
     container_name: overseerr
@@ -153,9 +146,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/overseerr:/config
 
-version: "3.7"
-
-services:
   plex:
     container_name: plex
     image: ghcr.io/hotio/plex
