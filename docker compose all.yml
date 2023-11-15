@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  #Radarr
+#Radarr
   radarr:
     container_name: radarr
     image: ghcr.io/hotio/radarr
@@ -17,7 +17,7 @@ services:
       - /docker/appdata/radarr:/config
       - /data:/data
 
-  #Sonarr
+#Sonarr
   sonarr:
     container_name: sonarr
     image: ghcr.io/hotio/sonarr
@@ -34,7 +34,7 @@ services:
       - /docker/appdata/sonarr:/config
       - /data:/data
       
-  #Bazarr
+#Bazarr
   bazarr:
     container_name: bazarr
     image: ghcr.io/hotio/bazarr
@@ -51,7 +51,7 @@ services:
       - /docker/appdata/bazarr:/config
       - /data/media:/data/media
       
-  #Prowlarr
+#Prowlarr
   prowlarr:
     container_name: prowlarr
     image: ghcr.io/hotio/prowlarr
@@ -67,7 +67,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/prowlarr:/config
       
-  #Tautulli
+#Tautulli
   tautulli:
     container_name: tautulli
     image: ghcr.io/hotio/tautulli
@@ -83,6 +83,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/tautulli:/config
 
+#qbittorrent
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
@@ -101,6 +102,7 @@ services:
       - 6881:6881/udp
     restart: unless-stopped
 
+#Homarr Dashboard
   homarr:
     container_name: homarr
     image: ghcr.io/ajnart/homarr:latest
@@ -114,9 +116,9 @@ services:
     environment:
       - TZ=Africa/Johannesburg
 
-services:
-  #NPM
-  app:
+#NPM
+  NPM:
+    container_name: NPM
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
     ports:
@@ -130,7 +132,7 @@ services:
       - /docker/appdata/NPM:/data #./data:/data
       - /docker/appdata/NPM/letsencrypt:/etc/letsencrypt #./letsencrypt:/etc/letsencrypt
 
-  #Overseerr
+#Overseerr
   overseerr:
     container_name: overseerr
     image: ghcr.io/hotio/overseerr
@@ -146,9 +148,11 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/overseerr:/config
 
+#Plex Media Server (?)
   plex:
     container_name: plex
     image: ghcr.io/hotio/plex
+    restart: unless-stopped
     ports:
       - "32400:32400"
     environment:
