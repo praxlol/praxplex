@@ -1,19 +1,42 @@
-version: "3.7"
-
+---
+version: "2.1"
 services:
-  #qbittorrent
   qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
-    image: ghcr.io/hotio/qbittorrent
-    restart: unless-stopped
-    ports:
-      - "6060:6060"
     environment:
       - PUID=1000
       - PGID=1000
-      - UMASK=002
+      - WEBUI_PORT=6060
       - TZ=Africa/Johannesburg
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/qbittorrent:/config
       - /data/torrents:/data/torrents
+    ports:
+      - 6060:6060
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+
+#Doesnt work with binding web ui, always wants to bind to port 8080
+    #version: "3.7"
+#
+#services:
+#  #qbittorrent
+#  qbittorrent:
+#    container_name: qbittorrent
+#    image: ghcr.io/hotio/qbittorrent
+#    restart: unless-stopped
+#    ports:
+#      - "6060:6060"
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - UMASK=002
+#      - TZ=Africa/Johannesburg
+#    volumes:
+#      - /etc/localtime:/etc/localtime:ro
+#      - /docker/appdata/qbittorrent:/config
+#      - /data/torrents:/data/torrents
+
