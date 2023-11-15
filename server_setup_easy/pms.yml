@@ -1,21 +1,18 @@
-version: "3.7"
-
+---
+version: "2.1"
 services:
   plex:
+    image: lscr.io/linuxserver/plex:latest
     container_name: plex
-    image: ghcr.io/hotio/plex
-    ports:
-      - "32400:32400"
+    network_mode: host
     environment:
       - PUID=1000
       - PGID=1000
-      - UMASK=002
       - TZ=Africa/Johannesburg
-      - PLEX_CLAIM_TOKEN=
-      - PLEX_ADVERTISE_URL
-      - PLEX_NO_AUTH_NETWORKS=192.168.0.116
-      - PLEX_BETA_INSTALL=false
+      - VERSION=docker
+      - PLEX_CLAIM= #optional
     volumes:
       - /docker/appdata/plex:/config
       - /tmp/plex:/transcode
       - /data/media:/data/media
+    restart: unless-stopped
