@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  #NPM
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      # These ports are in format <host-port>:<container-port>
+      - '50080:80'
+      - '50081:81'
+      - '50443:443'
+      # Add any other Stream port you want to expose
+      # - '21:21' # FTP
+    volumes:
+      - /docker/appdata/NPM:/data #./data:/data
+      - /docker/appdata/NPM/letsencrypt:/etc/letsencrypt #./letsencrypt:/etc/letsencrypt

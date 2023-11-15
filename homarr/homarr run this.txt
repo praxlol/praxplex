@@ -1,0 +1,7 @@
+docker run  \
+  --name homarr \
+  --restart unless-stopped \
+  -p 7575:7575 \
+  -v /docker/appdata/homarr/configs:/app/data/configs \
+  -v /docker/appdata/homarr/icons:/app/public/icons \
+  -d ghcr.io/ajnart/homarr:latest
