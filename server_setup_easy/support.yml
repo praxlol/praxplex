@@ -102,23 +102,23 @@ services:
       - /docker/appdata/tautulli:/config
 
 #qbittorrent
-  qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent:latest
-    container_name: qbittorrent
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - WEBUI_PORT=6060
-      - TZ=Africa/Johannesburg
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /docker/appdata/qbittorrent:/config
-      - /data/torrents:/data/torrents
-    ports:
-      - 6060:6060
-      - 6881:6881
-      - 6881:6881/udp
-    restart: unless-stopped
+#  qbittorrent:
+#    image: lscr.io/linuxserver/qbittorrent:latest
+#    container_name: qbittorrent
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - WEBUI_PORT=6060
+#      - TZ=Africa/Johannesburg
+#    volumes:
+#      - /etc/localtime:/etc/localtime:ro
+#      - /docker/appdata/qbittorrent:/config
+#      - /data/torrents:/data/torrents
+#    ports:
+#      - 6060:6060
+#      - 6881:6881
+#      - 6881:6881/udp
+#    restart: unless-stopped
 
 #Homarr Dashboard
   homarr:
