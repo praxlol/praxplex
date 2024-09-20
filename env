@@ -1,0 +1,30 @@
+PUID=1000
+GUID=1000
+TZ=Africa/Johannesburg
+PLEX_CLAIM=
+PLEX_URL=
+	##This is your local URl example: http://192.168.1.10:32400
+      #To find your plex token go to https://app.plex.tv/, go to your library, click on the 3 dots on the bottom right of one of your tv/movie posters
+      #Then click "View XML" in the bottom right of that popup, look at the URL of the XML window and find your X-Plex-Token= in the URL (at the very end)
+
+MEMBARR_TOKEN=MTI4NjYxMTY4NTI3NjI1NDIzMA.GS64ml.S_xAv8ND4Y5Nk2fu8IEj1M0D4ho85mcHt-LTz0
+
+#volumes
+BASE_PATH=/home/praxis/docker
+MEDIA_SHARE=/data
+
+
+		Add environmentals here
+#${PUID}
+#${GUID}
+#${TZ}
+#${PLEX_CLAIM}
+#${MEMBARR_TOKEN}
+#${PLEX_URL}
+	##This is your local URl example: http://192.168.1.10:32400
+      #To find your plex token go to https://app.plex.tv/, go to your library, click on the 3 dots on the bottom right of one of your tv/movie posters
+      #Then click "View XML" in the bottom right of that popup, look at the URL of the XML window and find your X-Plex-Token= in the URL (at the very end)
+
+#volumes
+#${BASE_PATH} = /home/praxis/docker
+#${MEDIA_SHARE} = /data
