@@ -6,6 +6,7 @@ PLEX_URL=
 	##This is your local URl example: http://192.168.1.10:32400
       #To find your plex token go to https://app.plex.tv/, go to your library, click on the 3 dots on the bottom right of one of your tv/movie posters
       #Then click "View XML" in the bottom right of that popup, look at the URL of the XML window and find your X-Plex-Token= in the URL (at the very end)
+PLEX_TOKEN=
 
 MEMBARR_TOKEN=
 
@@ -14,7 +15,7 @@ BASE_PATH=/home/praxis/docker
 MEDIA_SHARE=/data
 
 
-		Add environmentals here
+#Add environmentals here
 #${PUID}
 #${GUID}
 #${TZ}
