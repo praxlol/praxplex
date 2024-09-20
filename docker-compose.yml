@@ -56,7 +56,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/radarr/config:/config
-      - ${MEDIA_SHARE}:/share #Access to the entire share
+      - ${MEDIA_SHARE}:/data #Access to the entire share
     #networks: #Does not connect to overseer if you use NPM
     #  - proxy
     ports:
@@ -73,7 +73,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/sonarr/config:/config
-      - ${MEDIA_SHARE}:/share #Access to the entire share
+      - ${MEDIA_SHARE}:/data #Access to the entire share
     #networks: #Does not connect to overseer if you use NPM
     #  - proxy
     ports:
@@ -90,7 +90,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/readarr/config:/config
-      - ${MEDIA_SHARE}:/share 
+      - ${MEDIA_SHARE}:/data 
 
     ports:
       - 8787:8787
@@ -106,7 +106,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/lidarr/config:/config
-      - ${MEDIA_SHARE}:/share 
+      - ${MEDIA_SHARE}:/data 
     ports:
       - 8686:8686
     restart: unless-stopped
@@ -151,7 +151,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/overseer/config:/config
-      - ${MEDIA_SHARE}:/share #Access to the entire share
+      - ${MEDIA_SHARE}:/data #Access to the entire share
     #networks:
     #  - proxy
     ports:
@@ -186,7 +186,7 @@ services:
       - TORRENTING_PORT=6881 #Make sure to port forward this port in your router so you can seed more effectively
     volumes:
       - ${BASE_PATH}/qbittorent/config:/config
-      - ${MEDIA_SHARE}:/share
+      - ${MEDIA_SHARE}:/data
     ports:
       - 8080:8080
       - 6881:6881
@@ -234,7 +234,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/bazarr/config:/config
-      - ${MEDIA_SHARE}:/share
+      - ${MEDIA_SHARE}:/data
     ports:
       - 6767:6767
       
@@ -370,7 +370,7 @@ services:
 #    volumes:
 #      # You need at least this one volume mapped so Unpackerr can find your files to extract.
 #      # Make sure this matches your Starr apps; the folder mount (/downloads or /data) should be identical.
-#      - ${MEDIA_SHARE}:/share
+#      - ${MEDIA_SHARE}:/data
 #      #- ${BASE_PATH}/unpackerr/config:/config
 #    restart: always
 #    user: 1000:1000 #Needs to run as 1000
