@@ -1,1 +1,0 @@
-docker compose up -f qbit.yml -f support.yml up -d
