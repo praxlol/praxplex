@@ -199,8 +199,8 @@ services:
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/tautulli:/config
-    networks:
-      - proxy
+    #networks:
+      #- proxy
     ports:
       - 8181:8181
     restart: unless-stopped
