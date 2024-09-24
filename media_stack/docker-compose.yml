@@ -31,19 +31,19 @@ services:
     container_name: plex
     network_mode: host
     environment:
-      - PUID=${PUID}
-      - PGID=${GUID}
-      - TZ=${TZ}
+      - PUID=${PUID:?error}
+      - PGID=${GUID:?error}
+      - TZ=${TZ:?error}
       - VERSION=docker
-      - PLEX_CLAIM=${PLEX_CLAIM}
+      - PLEX_CLAIM=${PLEX_CLAIM:?error}
     ports:
       - 32400:32400
     devices:
      - /dev/dri:/dev/dri #Required for plex HW transcoding / QuickSync
     volumes:
-      - ${BASE_PATH}/plex/config:/config
-      - ${MEDIA_SHARE}/media/series:/series
-      - ${MEDIA_SHARE}/media/movies:/movies
+      - ${BASE_PATH:?error}/plex/config:/config
+      - ${MEDIA_SHARE:?error}/media/series:/series
+      - ${MEDIA_SHARE:?error}/media/movies:/movies
     restart: unless-stopped
     
   #Radarr - used to find movies automatically
@@ -51,12 +51,12 @@ services:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     environment:
-      - PUID=${PUID}
-      - PGID=${GUID}
-      - TZ=${TZ}
+      - PUID=${PUID:?error}
+      - PGID=${GUID:?error}
+      - TZ=${TZ:?error}
     volumes:
-      - ${BASE_PATH}/radarr/config:/config
-      - ${MEDIA_SHARE}:/data #Access to the entire share
+      - ${BASE_PATH:?error}/radarr/config:/config
+      - ${MEDIA_SHARE:?error}:/data #Access to the entire share
     #networks: #Does not connect to overseer if you use NPM
     #  - proxy
     ports:
@@ -68,12 +68,12 @@ services:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
     environment:
-      - PUID=${PUID}
-      - PGID=${GUID}
-      - TZ=${TZ}
+      - PUID=${PUID:?error}
+      - PGID=${GUID:?error}
+      - TZ=${TZ:?error}
     volumes:
-      - ${BASE_PATH}/sonarr/config:/config
-      - ${MEDIA_SHARE}:/data #Access to the entire share
+      - ${BASE_PATH:?error}/sonarr/config:/config
+      - ${MEDIA_SHARE:?error}:/data #Access to the entire share
     #networks: #Does not connect to overseer if you use NPM
     #  - proxy
     ports:
@@ -85,12 +85,12 @@ services:
     image: lscr.io/linuxserver/readarr:develop
     container_name: readarr
     environment:
-      - PUID=${PUID}
-      - PGID=${GUID}
-      - TZ=${TZ}
+      - PUID=${PUID:?error}
+      - PGID=${GUID:?error}
+      - TZ=${TZ:?error}
     volumes:
-      - ${BASE_PATH}/readarr/config:/config
-      - ${MEDIA_SHARE}:/data 
+      - ${BASE_PATH:?error}/readarr/config:/config
+      - ${MEDIA_SHARE:?error}:/data 
 
     ports:
       - 8787:8787
@@ -101,12 +101,12 @@ services:
     image: lscr.io/linuxserver/lidarr:latest
     container_name: lidarr
     environment:
-      - PUID=${PUID}
-      - PGID=${GUID}
-      - TZ=${TZ}
+      - PUID=${PUID:?error}
+      - PGID=${GUID:?error}
+      - TZ=${TZ:?error}
     volumes:
-      - ${BASE_PATH}/lidarr/config:/config
-      - ${MEDIA_SHARE}:/data 
+      - ${BASE_PATH:?error}/lidarr/config:/config
+      - ${MEDIA_SHARE:?error}:/data 
     ports:
       - 8686:8686
     restart: unless-stopped
@@ -116,11 +116,11 @@ services:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
     environment:
-      - PUID=${PUID}
-      - PGID=${GUID}
-      - TZ=${TZ}
+      - PUID=${PUID:?error}
+      - PGID=${GUID:?error}
+      - TZ=${TZ:?error}
     volumes:
-      - ${BASE_PATH}/prowlarr/config:/config
+      - ${BASE_PATH:?error}/prowlarr/config:/config
     #networks:
     #  - proxy
     ports:
@@ -133,11 +133,11 @@ services:
     image: ghcr.io/autobrr/autobrr:latest
     restart: unless-stopped
     environment:
-      - TZ=${TZ}
-      - PUID=${PUID}
-      - PGID=${GUID}
+      - TZ=${TZ:?error}
+      - PUID=${PUID:?error}
+      - PGID=${GUID:?error}
     volumes:
-      - ${BASE_PATH}/autobrr/config:/config
+      - ${BASE_PATH:?error}/autobrr/config:/config
     ports:
       - 7474:7474
 
@@ -146,12 +146,12 @@ services:
     image: lscr.io/linuxserver/overseerr:latest
     container_name: overseerr
     environment:
-      - PUID=${PUID}
-      - PGID=${GUID}
-      - TZ=${TZ}
+      - PUID=${PUID:?error}
+      - PGID=${GUID:?error}
+      - TZ=${TZ:?error}
     volumes:
-      - ${BASE_PATH}/overseer/config:/config
-      - ${MEDIA_SHARE}:/data #Access to the entire share
+      - ${BASE_PATH:?error}/overseer/config:/config
+      - ${MEDIA_SHARE:?error}:/data #Access to the entire share
     #networks:
     #  - proxy
     ports:
@@ -167,7 +167,7 @@ services:
       - LOG_LEVEL=info
       - LOG_HTML=false
       - CAPTCHA_SOLVER=none
-      - TZ=${TZ}
+      - TZ=${TZ:?error}
     ports:
       - 8191:8191
     restart: unless-stopped
@@ -179,14 +179,14 @@ services:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
     environment:
-      - PUID=${PUID}
-      - PGID=${GUID}
-      - TZ=${TZ}
+      - PUID=${PUID:?error}
+      - PGID=${GUID:?error}
+      - TZ=${TZ:?error}
       - WEBUI_PORT=8080
       - TORRENTING_PORT=6881 #Make sure to port forward this port in your router so you can seed more effectively
     volumes:
-      - ${BASE_PATH}/qbittorent/config:/config
-      - ${MEDIA_SHARE}:/data
+      - ${BASE_PATH:?error}/qbittorent/config:/config
+      - ${MEDIA_SHARE:?error}:/data
     ports:
       - 8080:8080
       - 6881:6881
@@ -198,11 +198,11 @@ services:
     image: lscr.io/linuxserver/tautulli:latest
     container_name: tautulli
     environment:
-      - PUID=${PUID}
-      - PGID=${GUID}
-      - TZ=${TZ}
+      - PUID=${PUID:?error}
+      - PGID=${GUID:?error}
+      - TZ=${TZ:?error}
     volumes:
-      - ${BASE_PATH}/tautulli:/config
+      - ${BASE_PATH:?error}/tautulli:/config
     #networks:
       #- proxy
     ports:
@@ -219,9 +219,9 @@ services:
     image: yoruio/membarr:latest
     restart: unless-stopped
     environment:
-      - token=${MEMBARR_TOKEN}
+      - token=${MEMBARR_TOKEN:?error}
     volumes:
-      - ${BASE_PATH}/membarr/config:/app/app/config
+      - ${BASE_PATH:?error}/membarr/config:/app/app/config
       
   #Bazarr - for subtitles. Try to use SRT format if you can rather than PGS due to performance issues
   bazarr:
@@ -229,12 +229,12 @@ services:
     image: lscr.io/linuxserver/bazarr:latest
     restart: unless-stopped
     environment:
-      - PUID=${GUID}
-      - PGID=${GUID}
-      - TZ=${TZ}
+      - PUID=${GUID:?error}
+      - PGID=${GUID:?error}
+      - TZ=${TZ:?error}
     volumes:
-      - ${BASE_PATH}/bazarr/config:/config
-      - ${MEDIA_SHARE}:/data
+      - ${BASE_PATH:?error}/bazarr/config:/config
+      - ${MEDIA_SHARE:?error}:/data
     ports:
       - 6767:6767
       
@@ -243,13 +243,13 @@ services:
     image: remirigal/plex-auto-languages:latest
     container_name: plex-auto-languages
     environment:
-      - PLEX_URL=${PLEX_URL} #This is your local URl example: http://192.168.1.10:32400
+      - PLEX_URL=${PLEX_URL:?error} #This is your local URl example: http://192.168.1.10:32400
       #To find your plex token go to https://app.plex.tv/, go to your library, click on the 3 dots on the bottom right of one of your tv/movie posters
       #Then click "View XML" in the bottom right of that popup, look at the URL of the XML window and find your X-Plex-Token= in the URL (at the very end)
-      - PLEX_TOKEN=${PLEX_TOKEN}
-      - TZ=${TZ}
+      - PLEX_TOKEN=${PLEX_TOKEN:?error}
+      - TZ=${TZ:?error}
     volumes:
-      - ${BASE_PATH}/pal/config:/config
+      - ${BASE_PATH:?error}/pal/config:/config
       
   #Cross Seed - used to take torrents from one tracker and seed them on another without leeching first. Increases ratio
   #
@@ -258,15 +258,15 @@ services:
     image: ghcr.io/cross-seed/cross-seed
     container_name: cross-seed
     environment:
-      - PUID=${PUID}
-      - PGID=${GUID}
+      - PUID=${PUID:?error}
+      - PGID=${GUID:?error}
     ports:
       - "2468:2468" # you'll need this for daemon mode only
     volumes:
-      - ${BASE_PATH}/cross-seed/config:/config #To configure you have to manually nano the config file
-      - ${BASE_PATH}/qbittorent/config/qBittorrent/BT_backup:/torrents:ro # your torrent clients .torrent cache, can and should be mounted read-only (e.g. qbit: `BT_Backup` | deluge: `state` | transmission: `transmission/torrents` | rtorrent: session dir from `.rtorrent.rc`)
-      - ${MEDIA_SHARE}/cross-seed/current-cross-seeds:/cross-seeds # A place to temp save current cross seed .torrent files
-      #- ${MEDIA_SHARE}/downloads:/data # OPTIONAL!!! this is dataDir path (for data-based matching) - will need to replicate your torrent client's container path (like Arr's do)
+      - ${BASE_PATH:?error}/cross-seed/config:/config #To configure you have to manually nano the config file
+      - ${BASE_PATH:?error}/qbittorent/config/qBittorrent/BT_backup:/torrents:ro # your torrent clients .torrent cache, can and should be mounted read-only (e.g. qbit: `BT_Backup` | deluge: `state` | transmission: `transmission/torrents` | rtorrent: session dir from `.rtorrent.rc`)
+      - ${MEDIA_SHARE:?error}/cross-seed/current-cross-seeds:/cross-seeds # A place to temp save current cross seed .torrent files
+      #- ${MEDIA_SHARE:?error}/downloads:/data # OPTIONAL!!! this is dataDir path (for data-based matching) - will need to replicate your torrent client's container path (like Arr's do)
     command: daemon # this enables the search mode, change to daemon to specifically run the daemon
     
   #Plex Meta Manager - used to create collections in plex. Example: "Most Popular Movies This Week", "Best of horror", etc.
@@ -274,13 +274,13 @@ services:
     image: meisnate12/plex-meta-manager
     container_name: plex-meta-manager
     environment:
-      - TZ=${TZ}
+      - TZ=${TZ:?error}
       #- PMM_OVERLAYS_ONLY=true #Tells PMM to run overlays only
       - PMM_CONFIG=/config/config.yml
       - PMM_RUN=true #Runs PMM Immediately
       #- PMM_RUN_LIBRARIES=Movies #Tells PMM to process only a library called "Movies"
     volumes:
-      - ${BASE_PATH}/plex-meta-manager/config:/config
+      - ${BASE_PATH:?error}/plex-meta-manager/config:/config
       
     restart: unless-stopped
     
@@ -291,7 +291,7 @@ services:
     ports:
       - 5690:5690
     volumes:
-      - ${BASE_PATH}/wizarr/data/database:/data/database
+      - ${BASE_PATH:?error}/wizarr/data/database:/data/database
       
   #Dozzle - Used to easily view logs of any container in real time!    
   dozzle:
@@ -307,11 +307,11 @@ services:
   recyclarr:
     image: ghcr.io/recyclarr/recyclarr
     container_name: recyclarr
-    user: ${PUID}:${GUID}
+    user: ${PUID:?error}:${GUID:?error}
     volumes:
-      - ${BASE_PATH}/recyclarr/config:/config
+      - ${BASE_PATH:?error}/recyclarr/config:/config
     environment:
-      - TZ=${TZ}
+      - TZ=${TZ:?error}
 
 #---------------------------------------------------------------------#
 #     Homarr - A simple, yet powerful dashboard for your server.      #
@@ -322,9 +322,9 @@ services:
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
-      - ${BASE_PATH}/homarr/configs:/app/data/configs
-      - ${BASE_PATH}/homarr/icons:/app/public/icons
-      - ${BASE_PATH}/homarr/data:/data
+      - ${BASE_PATH:?error}/homarr/configs:/app/data/configs
+      - ${BASE_PATH:?error}/homarr/icons:/app/public/icons
+      - ${BASE_PATH:?error}/homarr/data:/data
     ports:
       - '7575:7575'
 
@@ -342,9 +342,9 @@ services:
  #     - 8265:8265 # webUI port
  #     - 8266:8266 # server port
  #   environment:
- #     - TZ=${TZ}
- #     - PUID=${PUID}
- #     - PGID=${GUID}
+ #     - TZ=${TZ:?error}
+ #     - PUID=${PUID:?error}
+ #     - PGID=${GUID:?error}
  #     - UMASK_SET=002
  #     - nodeName=ServerNode
  #     - serverIP=0.0.0.0
@@ -354,10 +354,10 @@ services:
  #     - inContainer=true
  #     - ffmpegVersion=6
  #   volumes:
- #     - ${BASE_PATH}/tdarr/server:/app/server
- #     - ${BASE_PATH}/tdarr/configs:/app/configs
- #     - ${BASE_PATH}/tdarr/logs:/app/logs
- #     - ${MEDIA_SHARE}:/media
+ #     - ${BASE_PATH:?error}/tdarr/server:/app/server
+ #     - ${BASE_PATH:?error}/tdarr/configs:/app/configs
+ #     - ${BASE_PATH:?error}/tdarr/logs:/app/logs
+ #     - ${MEDIA_SHARE:?error}:/media
  #     - /transcode_cache:/temp
  #   devices:
  #    - /dev/dri:/dev/dri #Required for HW transcoding / QuickSync
@@ -370,8 +370,8 @@ services:
 #    volumes:
 #      # You need at least this one volume mapped so Unpackerr can find your files to extract.
 #      # Make sure this matches your Starr apps; the folder mount (/downloads or /data) should be identical.
-#      - ${MEDIA_SHARE}:/data
-#      #- ${BASE_PATH}/unpackerr/config:/config
+#      - ${MEDIA_SHARE:?error}:/data
+#      #- ${BASE_PATH:?error}/unpackerr/config:/config
 #    restart: always
 #    user: 1000:1000 #Needs to run as 1000
 #    # What you see below are defaults for this compose. You only need to modify things specific to your environment.
@@ -380,7 +380,7 @@ services:
 #    environment:
 #      - UN_START_DELAY=1m
 #      #- UMASK=002
-#      - TZ=${TZ}
+#      - TZ=${TZ:?error}
 #      #- UN_DEBUG=true
 #      # Sonarr Config
 #      - UN_SONARR_0_URL=http://${SERVER_IP}:7878
