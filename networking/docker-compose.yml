@@ -34,7 +34,7 @@ services:
       - "8053:80/tcp"
     environment:
       - TZ:${TZ:?error}
-      - WEBPASSWORD:
+      - WEBPASSWORD:${WEBPASSWORD:?error}
           # docker exec -u 0 -it mycontainer bash
           # pihole -a -p
     volumes:
