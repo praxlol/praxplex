@@ -35,7 +35,7 @@ services:
       - PGID=${GUID:?error}
       - TZ=${TZ:?error}
       - VERSION=docker
-      - PLEX_CLAIM=${PLEX_CLAIM:?error}
+      - PLEX_CLAIM=${PLEX_CLAIM}
     ports:
       - 32400:32400
     devices:
