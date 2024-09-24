@@ -1,5 +1,26 @@
-# More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
 services:
+  npm:
+    containter_name: npm
+    image: 'jc21/nginx-proxy-manager:latest'
+     restart: unless-stopped
+     ports:
+      # These ports are in format <host-port>:<container-port>
+      - '80:80' # Public HTTP Port
+      - '443:443' # Public HTTPS Port
+      - '81:81' # Admin Web Port
+      # Add any other Stream port you want to expose
+      # - '21:21' # FTP
+     # Uncomment the next line if you uncomment anything in the section
+    environment:
+      - TZ:${TZ:?error}
+      # Uncomment this if you want to change the location of
+      # the SQLite DB file within the container
+      # DB_SQLITE_FILE: "/data/database.sqlite"
+      # Uncomment this if IPv6 is not enabled on your host
+      # DISABLE_IPV6: 'true'
+    volumes:
+      - ${BASE_PATH:?error}/npm/data:/data
+      - ${BASE_PATH:?error}/npm/letsencrypt:/etc/letsencrypt
 
 #pihole for DNS routing and adblocking  
   pihole:
@@ -12,13 +33,11 @@ services:
       - "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
       - "8053:80/tcp"
     environment:
-      - TZ:${TZ}
-      - WEBPASSWORD:Pascale101! #'set a secure password here or it will be random'
-    # Volumes store your data between container upgrades
+      - TZ:${TZ:?error}
+      - WEBPASSWORD:
+          # docker exec -u 0 -it mycontainer bash
+          # pihole -a -p
     volumes:
-      - ${BASE_PATH}/pihole/etc-pihole:/etc/pihole'
-      - ${BASE_PATH}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d'
+      - ${BASE_PATH:?error}/pihole/etc-pihole:/etc/pihole'
+      - ${BASE_PATH:?error}/pihole/etc-dnsmasq.d:/etc/dnsmasq.d'
     #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
-    cap_add:
-      - NET_ADMIN # Required if you are using Pi-hole as your DHCP server, else not needed
-    restart: unless-stopped
