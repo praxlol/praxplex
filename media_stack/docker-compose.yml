@@ -44,6 +44,8 @@ services:
       - ${BASE_PATH:?error}/plex/config:/config
       - ${MEDIA_SHARE:?error}/media/series:/series
       - ${MEDIA_SHARE:?error}/media/movies:/movies
+      #Add any external media, see if it needs read access.
+      # - /data/HDD/Media:/externa_hdd
     restart: unless-stopped
     
   #Radarr - used to find movies automatically
