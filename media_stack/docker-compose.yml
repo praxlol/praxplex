@@ -21,6 +21,11 @@ version: "3.0"
 #  proxy: #You can remove this block if you are not planning to use a vpn
 #    external:
 #      name: proxy
+
+networks:
+  proxy:
+    name: proxy
+    external: true 
       
 services:
   #Plex - used to display the media
