@@ -1,3 +1,8 @@
+networks:
+  proxy:
+    name: proxy
+    external: true 
+
 services:
   npm:
     containter_name: npm
